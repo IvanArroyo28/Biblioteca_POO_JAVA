@@ -8,7 +8,7 @@ package biblioteca;
  *
  * @author IVAN
  */
-class Genero {
+public class Genero {
     private String nombre;
     private String descripcion;
 
@@ -32,6 +32,12 @@ class Genero {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
     
     
 }
