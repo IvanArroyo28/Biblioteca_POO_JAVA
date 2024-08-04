@@ -59,12 +59,16 @@ public class BibliotecaVista extends javax.swing.JFrame {
         //deshabilitamsos hasta que escoja el jbutton
         setBusquedaAutorE(false);
         setCrearAutorE(false);
+        this.jButtonGuardarCambioAutor.setEnabled(false);
         
         //mostar en jlist
         // Asociamos el modelo a la JList
         jListGeneros.setModel(generoListModel);
         jListAutores.setModel(autorListModel);
         jTablePrincipal.setModel(libroTableModel);
+        
+        //Index para diferenciar entre autor creado y autor nuevo
+        int indexSelect = 1;
         
         // Añade los listeners a los elementos del menú
     jMenuItemGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +144,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         jListAutores = new javax.swing.JList<>();
+        jButtonGuardarCambioAutor = new javax.swing.JButton();
         jPanelGeneros = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -241,6 +246,11 @@ public class BibliotecaVista extends javax.swing.JFrame {
         });
 
         jButtonBusquedaPrincipal.setIcon(new javax.swing.ImageIcon("C:\\Users\\IVAN\\Documents\\Estudio\\Bibliotecas\\JAVA\\Biblioteca_POO\\Biblioteca_POO_JAVA\\POO_Biblioteca\\src\\main\\recources\\Images\\busquedaA.png")); // NOI18N
+        jButtonBusquedaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBusquedaPrincipalActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Busqueda");
@@ -297,7 +307,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
                     .addGroup(jPanelInicioLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         jTabbedPaneMenu.addTab("Inicio", jPanelInicio);
@@ -425,7 +435,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(jComboBoxLibroGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonLibroAñadirGeneroNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jButtonAñdirLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -525,6 +535,13 @@ public class BibliotecaVista extends javax.swing.JFrame {
 
         jScrollPane7.setViewportView(jScrollPane6);
 
+        jButtonGuardarCambioAutor.setText("Guardar cambios");
+        jButtonGuardarCambioAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarCambioAutorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelAutoresLayout = new javax.swing.GroupLayout(jPanelAutores);
         jPanelAutores.setLayout(jPanelAutoresLayout);
         jPanelAutoresLayout.setHorizontalGroup(
@@ -536,22 +553,24 @@ public class BibliotecaVista extends javax.swing.JFrame {
             .addGroup(jPanelAutoresLayout.createSequentialGroup()
                 .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAutoresLayout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabelAccionAutor))
-                    .addGroup(jPanelAutoresLayout.createSequentialGroup()
                         .addGap(241, 241, 241)
                         .addComponent(jButtonCrearAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelAutoresLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
                         .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldNombreAutor)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jTextFieldBusquedaAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(jPanelAutoresLayout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldNombreAutor)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jTextFieldBusquedaAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(jPanelAutoresLayout.createSequentialGroup()
+                                .addGap(212, 212, 212)
+                                .addComponent(jLabelAccionAutor)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelAutoresLayout.createSequentialGroup()
@@ -562,7 +581,10 @@ public class BibliotecaVista extends javax.swing.JFrame {
                                     .addComponent(jRadioButtonCrearAutor)))
                             .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jButtonEliminarAutor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonEditarAutor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jButtonEditarAutor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAutoresLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonGuardarCambioAutor)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanelAutoresLayout.setVerticalGroup(
@@ -591,7 +613,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabelAccionAutor)
-                .addGap(36, 36, 36)
+                .addGap(41, 41, 41)
                 .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldNombreAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -599,9 +621,15 @@ public class BibliotecaVista extends javax.swing.JFrame {
                 .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(jButtonCrearAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGroup(jPanelAutoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAutoresLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jButtonCrearAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAutoresLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonGuardarCambioAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
 
         jTabbedPaneMenu.addTab("Autores", jPanelAutores);
@@ -658,6 +686,11 @@ public class BibliotecaVista extends javax.swing.JFrame {
         });
 
         jButtonBusquedaGenero.setIcon(new javax.swing.ImageIcon("C:\\Users\\IVAN\\Documents\\Estudio\\Bibliotecas\\JAVA\\Biblioteca_POO\\Biblioteca_POO_JAVA\\POO_Biblioteca\\src\\main\\recources\\Images\\busquedaA.png")); // NOI18N
+        jButtonBusquedaGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBusquedaGeneroActionPerformed(evt);
+            }
+        });
 
         jScrollPane8.setViewportView(jListGeneros);
 
@@ -717,7 +750,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
                 .addGroup(jPanelGenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jButtonAñadirGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -738,7 +771,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPaneMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+                .addComponent(jTabbedPaneMenu)
                 .addContainerGap())
         );
 
@@ -940,23 +973,52 @@ public class BibliotecaVista extends javax.swing.JFrame {
 
     private void jTextFieldNombreAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreAutorMouseClicked
         // TODO add your handling code here:
-        this.jTextFieldNombreAutor.setText(null);
+        if(this.jTextFieldNombreAutor.getText().equalsIgnoreCase("Ingrese el nombre del autor")){
+           this.jTextFieldNombreAutor.setText(null); 
+        }
+        
     }//GEN-LAST:event_jTextFieldNombreAutorMouseClicked
 
     private void jTextAreaDescripcionAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextAreaDescripcionAutorMouseClicked
         // TODO add your handling code here:
-        this.jTextAreaDescripcionAutor.setText(null);
+        if(this.jTextAreaDescripcionAutor.getText().equalsIgnoreCase("Ingrese la descripcion del autor")){
+            this.jTextAreaDescripcionAutor.setText(null);
+        }
+        
     }//GEN-LAST:event_jTextAreaDescripcionAutorMouseClicked
 
     private void jTextFieldBusquedaAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaAutorMouseClicked
         // TODO add your handling code here:
-        this.jTextFieldBusquedaAutor.setText(null);
+        if(this.jTextFieldBusquedaAutor.getText().equalsIgnoreCase("Ingrese el nombre del autor")){
+            this.jTextFieldBusquedaAutor.setText(null);
+        }
+        
         
     }//GEN-LAST:event_jTextFieldBusquedaAutorMouseClicked
 
     private void jButtonEditarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarAutorActionPerformed
         // TODO add your handling code here:
+        try{
         this.jLabelAccionAutor.setText("Editar autor");
+        this.jButtonGuardarCambioAutor.setEnabled(true);
+        
+        String buscar = this.jTextFieldBusquedaAutor.getText();
+            boolean encontrado = false;
+            
+            for(Autor autor: autores){
+                if(autor.getNombre().toString().equalsIgnoreCase(buscar)){
+                    encontrado = true;
+                    this.jTextFieldNombreAutor.setText(autor.getNombre());
+                    this.jTextAreaDescripcionAutor.setText(autor.getDescripcion());
+                    break;
+                }
+            
+        }
+            this.jTextFieldNombreAutor.setEnabled(true);
+            this.jTextAreaDescripcionAutor.setEnabled(true);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error" + e);
+        }
     }//GEN-LAST:event_jButtonEditarAutorActionPerformed
 
     private void jTextFieldBusquedaAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaAutorActionPerformed
@@ -969,13 +1031,40 @@ public class BibliotecaVista extends javax.swing.JFrame {
 
     private void jButtonBusquedaAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBusquedaAutorActionPerformed
         // TODO add your handling code here:
+        try{
+            String buscar = this.jTextFieldBusquedaAutor.getText();
+            boolean encontrado = false;
+            int index = -1;
+            
+            for(Autor autor: autores){
+                if(autor.getNombre().toString().equalsIgnoreCase(buscar)){
+                    JOptionPane.showMessageDialog(null,"Autor encontrado\n"+"Autor: "+autor.getNombre()+"\n"+"Descripcion:" +autor.getDescripcion());
+                    encontrado = true;
+                    index = 1;
+                    break;
+                }
+            }
+            if(!encontrado){
+                JOptionPane.showMessageDialog(null, "Autor "+"'"+buscar+"'"+" no ha sido encontrado");
+            }
+            
+            if(encontrado){
+            //hacer visible como seleccion del jList
+            this.jListAutores.setSelectedIndex(index);
+            this.jListAutores.ensureIndexIsVisible(index);
+            }
+            
+        }catch(Exception e){
+            System.out.println("Error: "+e);
+        }
+        
     }//GEN-LAST:event_jButtonBusquedaAutorActionPerformed
 
     private void jButtonCrearAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearAutorActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         try{
             String nombre = this.jTextFieldNombreAutor.getText();
-            String descripcion = this.jTextAreaDescripcionAutor.getText();
+            String descripcion = this.jTextAreaDescripcionAutor.getText();            
             Autor autor= new Autor(nombre,descripcion);
             autores.add(autor);
             //Añadir el autor al JComboBox
@@ -988,6 +1077,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
         }catch(Exception e){
             System.out.println("Error: "+ e.getMessage());
         }
+        actualizarJListAutores();
         
     }//GEN-LAST:event_jButtonCrearAutorActionPerformed
 
@@ -1118,6 +1208,68 @@ public class BibliotecaVista extends javax.swing.JFrame {
         this.jTextAreaDescripcionLibro.setText(null);
     }//GEN-LAST:event_jTextAreaDescripcionLibroMouseClicked
 
+    private void jButtonBusquedaGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBusquedaGeneroActionPerformed
+        // TODO add your handling code here:
+        try{
+        String busqueda = this.jTextFieldBusquedaGenero.getText();
+        boolean encontrado = false;
+        
+        for(Genero genero: generos){
+            if(genero.getNombre().toString().equalsIgnoreCase(busqueda)){
+                JOptionPane.showMessageDialog(null, "Genero encontrado?\n"+"Genero: "+genero.getNombre()+"\n"+"Descripcion:" +genero.getDescripcion()); 
+                encontrado = true;
+                break;
+            }
+        }
+        if(!encontrado){
+            JOptionPane.showMessageDialog(null, "Genero" +"'"+busqueda+"'" + " no ha sido encontrado");
+        }
+        }catch(Exception e){
+        System.out.println("Error:" + e);
+    }
+    }//GEN-LAST:event_jButtonBusquedaGeneroActionPerformed
+
+    private void jButtonBusquedaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBusquedaPrincipalActionPerformed
+        // TODO add your handling code here:
+        try{
+            String buscar = this.jTextFieldBusquedaPrincipal.getText();
+            boolean encontrado = false;
+            
+            for(Libro libro: libros){
+                if(libro.getNombre().toString().equalsIgnoreCase(buscar)){
+                     JOptionPane.showMessageDialog(null, "Libro encontrado?\n"+"Libro: "+libro.getNombre()+"\n"+"Descripcion:" +libro.getDescripcion()); 
+                    encontrado = true;
+                    break;
+                }
+            }
+            if(!encontrado){
+                JOptionPane.showMessageDialog(null, "Libro" +"'"+buscar+"'" + " no ha sido encontrado");
+            }
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: "+ e);
+        }
+        
+        
+    }//GEN-LAST:event_jButtonBusquedaPrincipalActionPerformed
+
+    private void jButtonGuardarCambioAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarCambioAutorActionPerformed
+        // TODO add your handling code here:
+        try{
+        String buscar = this.jTextFieldBusquedaAutor.getText();
+        for(Autor autor:autores){
+         if(autor.getNombre().toString().equalsIgnoreCase(buscar)){
+             autor.setNombre(this.jTextFieldNombreAutor.getText());
+             autor.setDescripcion(this.jTextAreaDescripcionAutor.getText());
+             JOptionPane.showMessageDialog(null, "Autor modificado con exito");
+         }   
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error: " + e);
+        }
+        actualizarJListAutores();
+    }//GEN-LAST:event_jButtonGuardarCambioAutorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1165,6 +1317,7 @@ public class BibliotecaVista extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEditarAutor;
     private javax.swing.JButton jButtonEliminarAutor;
     private javax.swing.JButton jButtonGeneros;
+    private javax.swing.JButton jButtonGuardarCambioAutor;
     private javax.swing.JButton jButtonInicio;
     private javax.swing.JButton jButtonInicioEditar;
     private javax.swing.JButton jButtonInicioEliminar;
