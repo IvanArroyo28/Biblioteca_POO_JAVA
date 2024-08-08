@@ -206,17 +206,20 @@ public class BibliotecaVista extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jButtonInicio)
-                        .addGap(0, 31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButtonLibros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButtonGeneros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonAutores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonGeneros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jButtonInicio)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAutores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonLibros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -530,6 +533,11 @@ public class BibliotecaVista extends javax.swing.JFrame {
 
         jButtonEliminarAutor.setIcon(new javax.swing.ImageIcon("C:\\Users\\IVAN\\Documents\\Estudio\\Bibliotecas\\JAVA\\Biblioteca_POO\\Biblioteca_POO_JAVA\\POO_Biblioteca\\src\\main\\recources\\Images\\eliminarAutor.png")); // NOI18N
         jButtonEliminarAutor.setText("Eliminar");
+        jButtonEliminarAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarAutorActionPerformed(evt);
+            }
+        });
 
         jScrollPane6.setViewportView(jListAutores);
 
@@ -1036,11 +1044,12 @@ public class BibliotecaVista extends javax.swing.JFrame {
             boolean encontrado = false;
             int index = -1;
             
-            for(Autor autor: autores){
+            for(int i= 0; i<autores.size();i++){
+                Autor autor = autores.get(i);
                 if(autor.getNombre().toString().equalsIgnoreCase(buscar)){
                     JOptionPane.showMessageDialog(null,"Autor encontrado\n"+"Autor: "+autor.getNombre()+"\n"+"Descripcion:" +autor.getDescripcion());
                     encontrado = true;
-                    index = 1;
+                    index = i;
                     break;
                 }
             }
@@ -1116,11 +1125,16 @@ public class BibliotecaVista extends javax.swing.JFrame {
 
     private void jTextFieldBusquedaGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaGeneroActionPerformed
         // TODO add your handling code here:
-        this.jTextFieldBusquedaGenero.setText(null);
+        if(this.jTextFieldBusquedaGenero.getText() == "Ingrese el genero literario a buscar"){
+            this.jTextFieldBusquedaGenero.setText(null);
+        }
     }//GEN-LAST:event_jTextFieldBusquedaGeneroActionPerformed
 
     private void jTextFieldNombreGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreGeneroActionPerformed
         // TODO add your handling code here:
+        if(this.jTextFieldNombreGenero.getText() == "Ingrese el nombre del genero"){
+            this.jTextFieldNombreGenero.setText(null);
+        }
         
     }//GEN-LAST:event_jTextFieldNombreGeneroActionPerformed
 
@@ -1135,7 +1149,9 @@ public class BibliotecaVista extends javax.swing.JFrame {
 
     private void jTextAreaDescripcionGeneroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextAreaDescripcionGeneroMouseClicked
         // TODO add your handling code here:
-        this.jTextAreaDescripcionGenero.setText(null);
+        if(this.jTextAreaDescripcionGenero.getText() == "Ingrese la descripcion del genero"){
+            this.jTextAreaDescripcionGenero.setText(null);
+        }
     }//GEN-LAST:event_jTextAreaDescripcionGeneroMouseClicked
 
     private void jTextFieldBusquedaGeneroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaGeneroMouseClicked
@@ -1269,6 +1285,26 @@ public class BibliotecaVista extends javax.swing.JFrame {
         }
         actualizarJListAutores();
     }//GEN-LAST:event_jButtonGuardarCambioAutorActionPerformed
+
+    private void jButtonEliminarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarAutorActionPerformed
+        // TODO add your handling code here:
+        try{
+            String buscar = this.jTextFieldBusquedaAutor.getText();
+        for(Autor autor:autores){
+         if(autor.getNombre().toString().equalsIgnoreCase(buscar)){
+             autores.remove(autor);
+             //hacer visible como seleccion del jList
+            this.jListAutores.setSelectedIndex(-1);
+            this.jListAutores.ensureIndexIsVisible(-1);
+             
+             JOptionPane.showMessageDialog(null, "Autor eliminado con exito");
+         }   
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: "+e);
+        }
+        actualizarJListAutores();
+    }//GEN-LAST:event_jButtonEliminarAutorActionPerformed
 
     /**
      * @param args the command line arguments
